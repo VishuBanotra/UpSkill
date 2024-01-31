@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 
 const connectdb = async () => {
-  await mongoose.connect(
-    "mongodb+srv://my_database:bBBAbuWkn8LKZpAJ@cluster0.rp9vsvt.mongodb.net/UpSkill"
-  );
+  await mongoose.connect(process.env.MONGO_URI);
 
   console.log(`MongoDb is running on port: ${process.env.PORT}`);
 };
