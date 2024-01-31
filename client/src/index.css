@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bg-blue-gradient {
+    background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(0, 112, 249, 1) 0%,
+      rgba(0, 212, 255, 1) 84%
+    );
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.slick-slide > div {
+  margin: 0 10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
+
+/* Star Rating  */
+
+.star-rating-on {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #eab308;
+}
+.star-rating-off {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+}
