@@ -1,11 +1,40 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { connection } from "../../config/config.js";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
+
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    const signup = await axios.post(
+      `${connection}/user/signup`,
+      { name, username, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const res = signup.data;
+    const isRegistered = res.success;
+
+    if (isRegistered === true) {
+      navigate("/login");
+    } else {
+      setSuccess(res.success);
+    }
   };
 
   return (
@@ -17,21 +46,35 @@ const Register = () => {
             src="https://skillup.1onestrong.com/wp-content/uploads/2023/11/Logo-03.png"
             alt=""
           />
+
           <form onSubmit={submitHandler} className="flex flex-col">
+            <input
+              className="border-2 border-gray-500 px-3 py-3 mb-8 text-sm placeholder:font-semibold  placeholder:text-neutral-500 outline-none"
+              placeholder="Name"
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            {success == false ? (
+              <p className="text-xs text-red-700 flex items-center gap-2 ">
+                <span>
+                  <RiErrorWarningFill />
+                </span>
+                Email already exists
+              </p>
+            ) : null}
+
             <input
               className="border-2 border-gray-500 px-3 py-3 mb-8 text-sm placeholder:font-semibold  placeholder:text-neutral-500 outline-none"
               placeholder="Email"
               type="text"
-            />
-            <input
-              className="border-2 border-gray-500 px-3 py-3 mb-8 text-sm placeholder:font-semibold  placeholder:text-neutral-500 outline-none"
-              placeholder="Name"
-              type="email"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <input
               className="border-2 border-gray-500 px-3 py-3 text-sm placeholder:font-semibold placeholder:text-neutral-500 outline-none mb-8"
               placeholder="Password"
               type={showPassword ? "text" : "password"}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <input
               className="border-2 border-gray-500 px-3 py-3 text-sm placeholder:font-semibold placeholder:text-neutral-500 outline-none"

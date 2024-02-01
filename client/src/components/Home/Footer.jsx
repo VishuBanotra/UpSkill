@@ -52,11 +52,14 @@ const Footer = () => {
         <div className="p-3">
           <h2 className="font-semibold tracking-wide">Connect with us</h2>
           <div>
-            <a href="https://www.linkedin.com/in/vishu-vishal-banotra-107828160/">
-              <FaLinkedin className="text-[43px] text-yellow_1 py-1" />
+            <a
+              target="blank"
+              href="https://www.linkedin.com/in/vishu-vishal-banotra-107828160/"
+            >
+              <FaLinkedin className="text-[43px]  hover:text-primary_color_1 transition-all ease-in-out duration-200 text-yellow_1 py-1" />
             </a>
-            <a href="https://github.com/vishubanotra">
-              <FaGithub className="text-[43px] text-yellow_1 py-1" />
+            <a target="blank" href="https://github.com/vishubanotra">
+              <FaGithub className="text-[43px] hover:text-primary_color_1 transition-all ease-in-out duration-200  text-yellow_1 py-1" />
             </a>
           </div>
         </div>

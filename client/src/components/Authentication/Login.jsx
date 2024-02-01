@@ -1,11 +1,40 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { connection } from "../../config/config.js";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(null);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [success, setSuccess] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    const res = await axios.post(
+      `${connection}/user/login`,
+      { username, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const token = res.data.token;
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/");
+    } else {
+      setSuccess(res.data.success);
+    }
   };
 
   return (
@@ -21,15 +50,26 @@ const Login = () => {
             Login to your Upskill account
           </h2>
           <form onSubmit={submitHandler} className="flex flex-col">
+            {success == false ? (
+              <p className="text-xs font-semibold flex gap-1 items-center text-red-700">
+                <span>
+                  <RiErrorWarningFill />
+                </span>
+                Credentials are incorrect. Try Again
+              </p>
+            ) : null}
+
             <input
               className="border-2 border-gray-500 px-3 py-3 mb-8 text-sm placeholder:font-semibold  placeholder:text-neutral-500 outline-none"
               placeholder="Email"
               type="email"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <input
               className="border-2 border-gray-500 px-3 py-3 text-sm placeholder:font-semibold placeholder:text-neutral-500 outline-none"
               placeholder="Password"
               type={showPassword ? "text" : "password"}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <p
               className=" cursor-pointer text-right mb-5 text-sm font-semibold py-[0.5px] text-primary_color_2 hover:text-yellow_1"
