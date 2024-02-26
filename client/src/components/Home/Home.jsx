@@ -8,6 +8,7 @@ import Testimonial from "./Testimonial.jsx";
 import Footer from "./Footer.jsx";
 
 const Home = () => {
+  
   return (
     <section>
       <Hero />

@@ -99,7 +99,7 @@ const CompanyLogo = () => {
     <div className="w-full py-[28px]  grid grid-cols-3 xl:grid-cols-6 place-items-center ">
       {imgLink.map((img, index) => {
         return (
-          <div className="w-[130px] sm:px-0 md:w-[220px] h-[100px]">
+          <div key={index} className="w-[130px] sm:px-0 md:w-[220px] h-[100px]">
             <img
               className="transition ease-in-out duration-300 opacity-20 op hover:opacity-100"
               src={img.link}

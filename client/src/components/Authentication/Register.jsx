@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { connection } from "../../config/config.js";
 import { RiErrorWarningFill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { userSignUp } from "../../app/actions/authAction.js";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -13,28 +13,24 @@ const Register = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    const signup = await axios.post(
-      `${connection}/user/signup`,
-      { name, username, password },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    dispatch(userSignUp({ name, username, password })).then((data) => {
+      const res = data.payload;
+      if (res.success) {
+        navigate("/signin");
+      } else {
+        setErrorMessage(res.message);
+        setName("");
+        setUsername("");
+        setPassword("");
       }
-    );
-    const res = signup.data;
-    const isRegistered = res.success;
-
-    if (isRegistered === true) {
-      navigate("/login");
-    } else {
-      setSuccess(res.success);
-    }
+    });
   };
 
   return (
@@ -55,12 +51,12 @@ const Register = () => {
               onChange={(e) => setName(e.target.value)}
             />
 
-            {success == false ? (
+            {errorMessage ? (
               <p className="text-xs text-red-700 flex items-center gap-2 ">
                 <span>
                   <RiErrorWarningFill />
                 </span>
-                Email already exists
+                {errorMessage}
               </p>
             ) : null}
 
@@ -89,8 +85,28 @@ const Register = () => {
             >
               Show Password
             </p>
-            <button className="px-3 py-3 text-sm font-semibold uppercase tracking-wide  bg-primary_color_1 hover:bg-yellow_1 text-white hover:text-neutral-800 transition-all duration-200 ease-in-out">
-              SIGNUP
+            <button
+              disabled={!(name && username && password).trim()}
+              className="px-3 py-3 text-sm font-semibold uppercase tracking-wide  bg-primary_color_1 hover:bg-yellow_1 text-white hover:text-neutral-800 transition-all duration-200 ease-in-out flex items-center justify-center gap-4"
+            >
+              {loading ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 animate-spin"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                  />
+                </svg>
+              ) : (
+                "SIGNUP"
+              )}
             </button>
             <div className="flex gap-2 font-semibold pt-3">
               <p>Already Registered ?</p>

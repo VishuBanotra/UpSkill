@@ -30,7 +30,7 @@ export const login = async (req, res, next) => {
           { expiresIn: "1h" }
         );
         res.status(201).json({
-          sucess: true,
+          success: true,
           message: "User Logged in Successfully",
           token,
         });
@@ -59,11 +59,18 @@ export const signup = async (req, res, next) => {
       await newUser.save();
 
       res.json({
-        sucess: true,
+        success: true,
         message: "User Created Successfully.",
       });
     }
   } catch (error) {
     next(error);
   }
+};
+
+// View Orders
+
+const courses = async (req, res, next) => {
+  try {
+  } catch (error) {}
 };

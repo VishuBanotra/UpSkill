@@ -43,6 +43,10 @@ const courseSchema = new Schema({
       type: String,
     },
   ],
+  payment: [{
+    type: mongoose.Schema.ObjectId
+    
+  }]
 });
 
 const Course = mongoose.model("Course", courseSchema);

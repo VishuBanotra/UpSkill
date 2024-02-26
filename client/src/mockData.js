@@ -1,0 +1,58 @@
+export const arr = [
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/3142166_a637_3.jpg",
+      name: "Get Aws Certified",
+      instructor: "Vishu Banotra",
+      ratings: 5,
+      price: 3400,
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/480x270/2320056_4fa0_6.jpg",
+      name: "Frontend Expert",
+      instructor: "Casy Miller",
+      ratings: 4.6,
+      price: 3400,
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/3142166_a637_3.jpg",
+      name: "Get Aws Certified",
+      instructor: "Vishu Banotra",
+      ratings: 5,
+      price: 3400,
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/3142166_a637_3.jpg",
+      name: "Get Aws Certified",
+      instructor: "Vishu Banotra",
+      ratings: 5,
+      price: 3400,
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/3142166_a637_3.jpg",
+      name: "Get Aws Certified",
+      instructor: "Vishu Banotra",
+      ratings: 5,
+      price: 3400,
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/3142166_a637_3.jpg",
+      name: "Get Aws Certified",
+      instructor: "Vishu Banotra",
+      ratings: 5,
+      price: 3400,
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/3142166_a637_3.jpg",
+      name: "Get Aws Certified",
+      instructor: "Vishu Banotra",
+      ratings: 5,
+      price: 3400,
+    },
+    {
+      img: "https://img-c.udemycdn.com/course/750x422/3142166_a637_3.jpg",
+      name: "Get Aws Certified",
+      instructor: "Vishu Banotra",
+      ratings: 5,
+      price: 3400,
+    },
+  ];

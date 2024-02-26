@@ -26,9 +26,12 @@ const Cards = () => {
         Featured Classes
       </h2>
       <div className=" mx-auto container grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center">
-        {arr.map((card) => {
+        {arr.map((card, index) => {
           return (
-            <div className=" shadow-xl my-[33px] w-[90%] transition ease-in-out duration-300  hover:translate-y-[-9px] rounded-xl tra overflow-hidden">
+            <div
+              key={index}
+              className=" shadow-xl my-[33px] w-[90%] transition ease-in-out duration-300  hover:translate-y-[-9px] rounded-xl tra overflow-hidden"
+            >
               <div>
                 <img src={card.link} alt="" />
               </div>
