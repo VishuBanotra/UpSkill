@@ -2,9 +2,19 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 
-const Schema = mongoose.Schema;
+import { Document, Model, Schema } from "mongoose";
 
-const userSchema = new Schema({
+interface UserType extends Document {
+  name: string;
+  username: string;
+  password: string;
+  purchasedCourses: [];
+  role: string;
+  generateHash: (password: string) => any;
+  validatePassword: (password: string) => boolean;
+}
+
+const userSchema: Schema<UserType> = new Schema({
   name: {
     type: String,
     required: [true, "Please enter your name."],
@@ -18,10 +28,12 @@ const userSchema = new Schema({
     type: "String",
     required: true,
   },
-  purchasedCourses: [{
-    type: mongoose.Schema.ObjectId,
-    ref: "Course"
-  }],
+  purchasedCourses: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Course",
+    },
+  ],
   role: {
     type: String,
     default: "user",
@@ -29,7 +41,7 @@ const userSchema = new Schema({
 });
 
 // Hashing Passsword
-userSchema.methods.generateHash = async function (password) {
+userSchema.methods.generateHash = async function (password: string) {
   try {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
@@ -40,7 +52,7 @@ userSchema.methods.generateHash = async function (password) {
 };
 
 // Validating Password
-userSchema.methods.validatePassword = async function (password) {
+userSchema.methods.validatePassword = async function (password: string) {
   try {
     const validatedPassword = await bcrypt.compare(password, this.password);
     return validatedPassword;
@@ -49,6 +61,6 @@ userSchema.methods.validatePassword = async function (password) {
   }
 };
 
-const User = mongoose.model("User", userSchema);
+const User: Model<UserType> = mongoose.model("User", userSchema);
 
 export default User;

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { RiErrorWarningFill } from "react-icons/ri";
 
 import { useDispatch, useSelector } from "react-redux";
-import { userSignIn } from "../../app/actions/authAction.js";
+import { loadUser, userSignIn } from "../../app/actions/authAction.js";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -23,6 +23,7 @@ const Login = () => {
       const res = data.payload;
       if (res.success) {
         navigate("/");
+        dispatch(loadUser());
       } else {
         setErrorMessage(res.message);
       }

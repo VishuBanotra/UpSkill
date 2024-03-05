@@ -3,8 +3,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
-import { errorHandler } from "./Middleware/errorHandler.js";
-
+import { errorHandler } from "../src/middleware/errorHandler";
 // Dotenv Config
 dotenv.config();
 
@@ -29,8 +28,8 @@ app.use(
 app.use(express.json());
 
 //Routes
-import userRoutes from "./Routes/userRoutes.js";
-app.use("/api/v1", userRoutes);
+import { userRoute } from "../src/routes/userRoutes";
+app.use("/api/v1", userRoute);
 
 // Error Middleware
 app.use(errorHandler);
